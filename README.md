@@ -1,59 +1,95 @@
+<div align="center">
+
 # MCDA
 
+### Multi-View Graph Contrastive Learning with Dynamic Topology Augmentation for Functional MRI Analysis
+
 [![arXiv](https://img.shields.io/badge/arXiv-2610.26322-b31b1b.svg)](https://arxiv.org/abs/2610.26322)
-[![Code status](https://img.shields.io/badge/Code-In%20Preparation-yellow.svg)](#to-do-list)
+[![Paper](https://img.shields.io/badge/Paper-Open_Access-4CAF50.svg)](https://arxiv.org/pdf/2610.26322)
+[![Code status](https://img.shields.io/badge/Code-In_Preparation-yellow.svg)](#code-release)
 
-**MCDA: Multi-View Graph Contrastive Learning with Dynamic Topology Augmentation for Functional MRI Analysis**
+**Hao Zhang<sup>1,2</sup>, Xiaoyun Liu<sup>3</sup>, Shuo Huang<sup>2</sup>, Yue Ma<sup>4</sup>, Liang Cao<sup>5</sup>, Mingxia Liu<sup>6</sup>, Li Zhang<sup>2</sup>**
 
-Hao Zhang, Xiaoyun Liu, Shuo Huang, Yue Ma, Liang Cao, Mingxia Liu, and Li Zhang
+<sup>1</sup> Fudan University &nbsp;&nbsp; <sup>2</sup> Nanjing Forestry University<br>
+<sup>3</sup> Southeast University &nbsp;&nbsp; <sup>4</sup> Jiangsu Health Vocational College<br>
+<sup>5</sup> Taian Tumor Hospital &nbsp;&nbsp; <sup>6</sup> University of North Carolina at Chapel Hill
 
-**Preprint:** arXiv:2610.26322 · Submitted on October 19, 2026
+**arXiv preprint · October 2026**
 
 [Paper](https://arxiv.org/abs/2610.26322) · [PDF](https://arxiv.org/pdf/2610.26322) · [Citation](#citation)
 
+<p align="center">
+  <a href="img/framework.webp">
+    <img src="img/framework.webp" alt="Overview of the MCDA framework, including brain network construction, complementary topology augmentation, dynamic augmentation updates, and multi-view contrastive learning." width="100%">
+  </a>
+</p>
+
+<p align="center"><em>Overview of the proposed MCDA framework.</em></p>
+
 ## Overview
 
-MCDA is a topology-guided multi-view graph contrastive learning framework for resting-state functional MRI (rs-fMRI) analysis and brain disorder identification. It combines complementary brain network augmentations with history-guided refinement to learn from both subject-specific functional patterns and inter-subject variability.
+<p align="center">
+<strong>MCDA</strong> is a topology-guided multi-view graph contrastive learning framework for resting-state functional MRI (rs-fMRI) analysis and brain disorder identification. It combines <strong>self-aware</strong> and <strong>cross-sample</strong> brain network augmentations with history-guided refinement, learning from subject-specific functional patterns and inter-subject variability.
+</p>
 
-The framework has four main components:
+<p align="center">
+The framework jointly optimizes diagnostic classification and multi-view contrastive learning. The original and two augmented views share a classification branch, and their predicted patient probabilities are averaged during both training and testing.
+</p>
 
-1. **Brain network construction.** Represent ROI-wise BOLD signals and functional connectivity as brain network inputs.
-2. **Complementary view generation.** Generate a self-aware view to capture subject-specific patterns and a cross-sample view to incorporate perturbations from other subjects.
-3. **Dynamic Augmentation Update (DAU).** Use augmentation histories across training epochs to refine the current augmented views through gated fusion.
-4. **Joint classification and contrastive learning.** Combine diagnostic supervision with consistency and diversity constraints between the original and augmented views and between the two augmented views.
+<p align="center">
+Experiments cover <strong>REST-MDD</strong> and <strong>ABIDE</strong>, with <strong>1,236 subjects</strong> in total. The paper also analyzes the similarity-score optimization directions and a lower bound of the contrastive objective.
+</p>
 
-The three views use a shared classification branch, and their predicted patient probabilities are averaged during both training and testing.
+## Dynamic Augmentation Update (DAU) Module
 
-```mermaid
-flowchart TD
-    A["rs-fMRI / ROI-wise BOLD signals"] --> B["Brain network construction"]
-    B --> C["Original view"]
-    B --> D["Self-aware augmentation"]
-    B --> E["Cross-sample augmentation"]
-    D --> F["History-guided DAU refinement"]
-    E --> F
-    C --> G["Multi-view classification and contrastive learning"]
-    F --> G
-    G --> H["Brain disorder prediction"]
-```
+<p align="center">
+DAU summarizes recent augmentation histories with a <strong>shared BiGRU</strong> and generates element-wise gates to blend each current augmented view with its branch-specific historical reference.
+</p>
 
-The paper also analyzes the similarity-score optimization directions and a lower bound of the contrastive objective. Experiments cover two public rs-fMRI datasets, **REST-MDD** and **ABIDE**, with **1,236 subjects** in total.
+<p align="center">
+  <a href="img/DAU_Module.png">
+    <img src="img/DAU_Module.png" alt="DAU module: graph projection and history windows, shared BiGRU and gate generation, and gated historical fusion." width="100%">
+  </a>
+</p>
+
+<p align="center"><em>Graph projection and history windows, shared BiGRU encoding, and gated historical fusion.</em></p>
+
+## Exploratory Analysis of Brain Region-Level Associations
+
+<p align="center">
+We explore model-derived brain region associations for <strong>MDD vs. HC</strong> on REST-MDD and <strong>ASD vs. HC</strong> on ABIDE. The selected connectivity patterns provide exploratory anatomical context for the learned brain network representations.
+</p>
+
+<p align="center">
+  <a href="img/Discriminative_FCs.jpg">
+    <img src="img/Discriminative_FCs.jpg" alt="Selected brain region associations shown from multiple anatomical views: MDD versus healthy controls on the left and ASD versus healthy controls on the right." width="100%">
+  </a>
+</p>
+
+<p align="center"><em>Selected brain region associations for (a) MDD vs. HC and (b) ASD vs. HC.</em></p>
 
 ## Code Release
 
-The implementation is being organized for a structured public release. This repository currently provides the paper information, method overview, and citation. Setup and usage instructions will accompany the code release.
+<p align="center">
+The implementation is being organized for a structured public release. Setup instructions, dependencies, and training and evaluation commands will accompany the code release.
+</p>
 
 ## To-do List
 
-- [x] Release the paper on arXiv.
-- [x] Add paper information and a method overview.
-- [ ] Organize, clean, and release the source code.
-- [ ] Add environment setup and dependency requirements.
-- [ ] Add data preparation, training, and evaluation instructions.
+<p align="center">
+☑ Release the paper on arXiv.<br>
+☑ Add paper information, the framework, and module illustrations.<br>
+☐ Organize, clean, and release the source code.<br>
+☐ Add environment setup and dependency requirements.<br>
+☐ Add data preparation, training, and evaluation instructions.
+</p>
 
 ## Citation
 
-If you find this work useful, please cite:
+<p align="center">If you find this work useful, please cite:</p>
+
+<details>
+<summary><strong>BibTeX</strong></summary>
 
 ```bibtex
 @misc{zhang2026mcda,
@@ -65,3 +101,7 @@ If you find this work useful, please cite:
   url           = {https://arxiv.org/abs/2610.26322}
 }
 ```
+
+</details>
+
+</div>
