@@ -24,72 +24,43 @@
   </a>
 </p>
 
-<p align="center"><em>Overview of the proposed MCDA framework.</em></p>
+</div>
 
 ## Overview
 
-<p align="center">
-<strong>MCDA</strong> is a topology-guided multi-view graph contrastive learning framework for resting-state functional MRI (rs-fMRI) analysis and brain disorder identification. It combines <strong>self-aware</strong> and <strong>cross-sample</strong> brain network augmentations with history-guided refinement, learning from subject-specific functional patterns and inter-subject variability.
-</p>
+**MCDA** is a topology-guided multi-view graph contrastive learning framework for resting-state functional MRI (rs-fMRI) analysis and brain disorder identification. It combines **self-aware** and **cross-sample** brain network augmentations with history-guided refinement, learning from subject-specific functional patterns and inter-subject variability.
 
-<p align="center">
 The framework jointly optimizes diagnostic classification and multi-view contrastive learning. The original and two augmented views share a classification branch, and their predicted patient probabilities are averaged during both training and testing.
-</p>
 
-<p align="center">
-Experiments cover <strong>REST-MDD</strong> and <strong>ABIDE</strong>, with <strong>1,236 subjects</strong> in total. The paper also analyzes the similarity-score optimization directions and a lower bound of the contrastive objective.
-</p>
+Experiments cover **REST-MDD** and **ABIDE**, with **1,236 subjects** in total. The paper also analyzes the similarity-score optimization directions and a lower bound of the contrastive objective.
 
 ## Dynamic Augmentation Update (DAU) Module
 
-<p align="center">
-DAU summarizes recent augmentation histories with a <strong>shared BiGRU</strong> and generates element-wise gates to blend each current augmented view with its branch-specific historical reference.
-</p>
+DAU summarizes recent augmentation histories with a **shared BiGRU** and generates element-wise gates to blend each current augmented view with its branch-specific historical reference.
 
-<p align="center">
-  <a href="img/DAU_Module.png">
-    <img src="img/DAU_Module.png" alt="DAU module: graph projection and history windows, shared BiGRU and gate generation, and gated historical fusion." width="100%">
-  </a>
-</p>
-
-<p align="center"><em>Graph projection and history windows, shared BiGRU encoding, and gated historical fusion.</em></p>
+[![DAU module: graph projection and history windows, shared BiGRU and gate generation, and gated historical fusion.](img/DAU_Module.png)](img/DAU_Module.png)
 
 ## Exploratory Analysis of Brain Region-Level Associations
 
-<p align="center">
-We explore model-derived brain region associations for <strong>MDD vs. HC</strong> on REST-MDD and <strong>ASD vs. HC</strong> on ABIDE. The selected connectivity patterns provide exploratory anatomical context for the learned brain network representations.
-</p>
+We explore model-derived brain region associations for **MDD vs. HC** on REST-MDD and **ASD vs. HC** on ABIDE. The selected connectivity patterns provide exploratory anatomical context for the learned brain network representations.
 
-<p align="center">
-  <a href="img/Discriminative_FCs.jpg">
-    <img src="img/Discriminative_FCs.jpg" alt="Selected brain region associations shown from multiple anatomical views: MDD versus healthy controls on the left and ASD versus healthy controls on the right." width="100%">
-  </a>
-</p>
-
-<p align="center"><em>Selected brain region associations for (a) MDD vs. HC and (b) ASD vs. HC.</em></p>
+[![Selected brain region associations shown from multiple anatomical views: MDD versus healthy controls on the left and ASD versus healthy controls on the right.](img/Discriminative_FCs.jpg)](img/Discriminative_FCs.jpg)
 
 ## Code Release
 
-<p align="center">
 The implementation is being organized for a structured public release. Setup instructions, dependencies, and training and evaluation commands will accompany the code release.
-</p>
 
 ## To-do List
 
-<p align="center">
-☑ Release the paper on arXiv.<br>
-☑ Add paper information, the framework, and module illustrations.<br>
-☐ Organize, clean, and release the source code.<br>
-☐ Add environment setup and dependency requirements.<br>
-☐ Add data preparation, training, and evaluation instructions.
-</p>
+- [x] Release the paper on arXiv.
+- [x] Add paper information, the framework, and module illustrations.
+- [ ] Organize, clean, and release the source code.
+- [ ] Add environment setup and dependency requirements.
+- [ ] Add data preparation, training, and evaluation instructions.
 
 ## Citation
 
-<p align="center">If you find this work useful, please cite:</p>
-
-<details>
-<summary><strong>BibTeX</strong></summary>
+If you find this work useful, please cite:
 
 ```bibtex
 @misc{zhang2026mcda,
@@ -101,7 +72,3 @@ The implementation is being organized for a structured public release. Setup ins
   url           = {https://arxiv.org/abs/2610.26322}
 }
 ```
-
-</details>
-
-</div>
